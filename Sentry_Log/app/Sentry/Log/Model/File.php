@@ -16,25 +16,6 @@ declare(strict_types=1);
 class Sentry_Log_Model_File extends Log_Model_File
 {
     /**
-     * @var string $dsn
-     */
-    protected $dsn = null;
-
-    /**
-     * Sentry_Log_Model_File constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->dsn = $this->getDsn();
-
-        if ($this->dsn) {
-            Sentry\init(['dsn' => $this->dsn]);
-        }
-    }
-
-    /**
      * Add Log
      *
      * @param mixed $message
@@ -44,24 +25,14 @@ class Sentry_Log_Model_File extends Log_Model_File
      */
     public function add($message, int $level = self::INFO): int
     {
-        if ($message instanceof Throwable && $this->dsn) {
+        if ($message instanceof Throwable) {
             try {
-                Sentry\captureException($message);
+                Sentry_Log::exception($message);
             } catch (Throwable $throwable) {
                 // Do nothing if sentry fails
             }
         }
 
         return parent::add($message, $level);
-    }
-
-    /**
-     * Retrieve DSN
-     *
-     * @return string|null
-     */
-    protected function getDsn(): ?string
-    {
-        return App::getConfig('app.sentry_dsn');
     }
 }
