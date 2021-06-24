@@ -18,12 +18,13 @@ class Sentry_Log_Model_File extends Log_Model_File
     /**
      * Add Log
      *
-     * @param mixed $message
-     * @param int   $level
+     * @param mixed  $message
+     * @param int    $level
+     * @param string $logFile
      *
      * @return int
      */
-    public function add($message, int $level = self::INFO): int
+    public function add($message, int $level = self::INFO, ?string $logFile = null): int
     {
         if ($message instanceof Throwable) {
             try {
@@ -33,6 +34,6 @@ class Sentry_Log_Model_File extends Log_Model_File
             }
         }
 
-        return parent::add($message, $level);
+        return parent::add($message, $level, $logFile);
     }
 }
