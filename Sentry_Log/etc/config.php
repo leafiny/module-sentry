@@ -7,13 +7,13 @@ $config = [
         ],
     ],
 
-    'observer' => [
+    'events' => [
         'setup_object_init_after' => [
             'sentry_init' => 0,
         ],
     ],
 
-    'event' => [
+    'observer' => [
         'sentry_init' => [
             'class' => Sentry_Log_Observer_Init::class
         ],
