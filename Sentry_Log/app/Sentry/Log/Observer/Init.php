@@ -13,7 +13,7 @@ declare(strict_types=1);
 /**
  * Class Sentry_Log_Observer_Init
  */
-class Sentry_Log_Observer_Init extends Core_Event implements Core_Interface_Event
+class Sentry_Log_Observer_Init extends Core_Observer implements Core_Interface_Observer
 {
     /**
      * Execute
